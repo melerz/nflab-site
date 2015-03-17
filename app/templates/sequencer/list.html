@@ -1,0 +1,19 @@
+<a href="#/add" class="btn btn-primary">New Run</a>
+<hr />
+<table class="table table-hover">
+<thead>
+	<th>ID</th>
+	<th>Name</th>
+	<th>illumina data</th>
+</thead>
+<tbody>
+	<% _.each(runs2,function(run){ %>
+		<tr>
+			<td><%=run.get("id")%></td>
+			<td><%=run.get("name")%></td>
+			<td><%=run.get("illumina_id")%></td>
+			<td><a href="#/edit/<%=run.id%>"><button class="editButton">Edit</button</a></td>			
+		</tr>
+	<%})%>
+</tbody>
+</table>
