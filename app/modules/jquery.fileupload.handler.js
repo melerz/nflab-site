@@ -1,4 +1,4 @@
-define(['js/sequencer/views/configuration-view'],function(ConfigurationView){
+define(['js/sequencer/views/configuration-view','pubsub'],function(ConfigurationView,Mediator){
     'use strict';
     $('#fileupload').fileupload({
         url: '/illumina/uploadcsv/',
@@ -13,10 +13,12 @@ define(['js/sequencer/views/configuration-view'],function(ConfigurationView){
                         indexes: file.configuration["indexes"]
 
                       }; //close csv_data
-                    ConfigurationView.instance().render({data:csv_data})
-/*                    var csv = ich.csvcontainer(csv_data);
-                    $(csv).hide().appendTo("#experiments").fadeIn(500);
-                    csv_objects.push(csv_data);*/
+                    ConfigurationView.instance({illumina_id:$(".illumina").
+                                                         children(":selected").
+                                                            attr("value"),run_name:$("#run-name").val()}).
+                                                                render({data:csv_data})
+                    //Mediator.trigger("alert",{foo:$(".illumina").children(":selected").attr("value")})
+                    //Illumina ID is initialized in edit.js 
 
                  }); //close each function
         },//close done function clalback, 

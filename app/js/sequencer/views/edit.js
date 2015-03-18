@@ -7,9 +7,10 @@ define([
 	'underscore',
 	'backbone',
 	'router',
+	'pubsub',
 	'bootstrap',
 	'fileupload'
-],function(runModel,illuminaCollection,runEditTemplate,runUploadTemplate,$,_,Backbone,router){
+],function(runModel,illuminaCollection,runEditTemplate,runUploadTemplate,$,_,Backbone,router,Mediator){
 
 	var runEditView = Backbone.View.extend({
 		el:"#mainView",
@@ -72,7 +73,7 @@ define([
 		},
 
 		upload:function(ev){
-			console.log("generate upload template")
+			var illuminaID = $(ev.currentTarget).children(":selected").attr("value")
 			var compiledTemplate = _.template(runUploadTemplate);
    		    $("#uploadView").html(compiledTemplate({}));
 			require(["fileuploadHandler"])

@@ -17,7 +17,7 @@
                         <% _.each(csvFile.reads,function(read){ %>
                         <tr data-type="read">
                             <td>Read</td>
-                            <td><%=read%></td>
+                            <td data-value><%=read%></td>
                             <td class="col-xs-1"><input class="form-control"></td>
                         </tr>
                         <%});%>
@@ -25,7 +25,7 @@
                         <% _.each(csvFile.indexes,function(index){ %>
                         <tr data-type="index">
                             <td>Index</td>
-                            <td><%=index%></td>
+                            <td data-value><%=index%></td>
                             <td class="col-xs-1"><input class="form-control"></td>
                         </tr>
                         <%});%>
@@ -33,7 +33,7 @@
                 </table>
             </div>
         </div>
-        <button id="run" type="button" class="btn btn-primary btn-lg" data-expname="<%=csvFile.header%>">Run Me!</button>
+        <button id="<%=csvFile.id%>" type="button" class="btn btn-primary btn-lg run" data-expname="<%=csvFile.header%>">Run Me!</button>
     </div>
 </div>
 
