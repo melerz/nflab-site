@@ -1,0 +1,40 @@
+<div id="<%=csvFile.id%>" class="panel panel-primary" data-expname="<%=csvFile.header%>">
+    <div class="panel-heading">
+        <label>Experiment name: <%=csvFile.header%></label>
+    </div>
+    <div class="panel-body">
+        <div id="config-container">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Read/Index</th>
+                            <th>Value</th>
+                            <th>Position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% _.each(csvFile.reads,function(read){ %>
+                        <tr data-type="read">
+                            <td>Read</td>
+                            <td><%=read%></td>
+                            <td class="col-xs-1"><input class="form-control"></td>
+                        </tr>
+                        <%});%>
+
+                        <% _.each(csvFile.indexes,function(index){ %>
+                        <tr data-type="index">
+                            <td>Index</td>
+                            <td><%=index%></td>
+                            <td class="col-xs-1"><input class="form-control"></td>
+                        </tr>
+                        <%});%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button id="run" type="button" class="btn btn-primary btn-lg" data-expname="<%=csvFile.header%>">Run Me!</button>
+    </div>
+</div>
+
+

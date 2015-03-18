@@ -1,12 +1,15 @@
 define([
 	'js/sequencer/models/seq-model',
+	'js/sequencer/collections/illumina-col',
 	'text!templates/sequencer/edit.html',
+	'text!templates/sequencer/upload.html',
 	'jquery',
 	'underscore',
 	'backbone',
 	'router',
 	'bootstrap',
-],function(runModel,runEditTemplate,$,_,Backbone,router){
+	'fileupload'
+],function(runModel,illuminaCollection,runEditTemplate,runUploadTemplate,$,_,Backbone,router){
 
 	var runEditView = Backbone.View.extend({
 		el:"#mainView",
@@ -14,11 +17,10 @@ define([
 			this.router = options.router;
 		},
 		render: function(options){
+			var that=this;
 			if(options.id)
 			{
 				//User has pressed 'Edit' button
-				var that=this;
-
 				console.log("current id:"+options.id)
 				that.currentRun = new runModel({id:options.id});
 				that.currentRun.fetch({
@@ -29,14 +31,22 @@ define([
 				});
 
 			}else{
-				var compiledTemplate = _.template(runEditTemplate);
-				this.$el.html(compiledTemplate({run:null}));
+				var illuminaList = new illuminaCollection();
+				illuminaList.fetch({
+					success:function(illuminaObjects){
+        				var compiledTemplate = _.template(runEditTemplate);
+		       		    that.$el.html(compiledTemplate({run:null,illumina:illuminaObjects.models}));
+					}
+				});
+
 			}
 		},//close of render function
 		events:{
 			'click .deleteButton' : 'deleteRun',
-			'submit .form-run-add': 'handleForm'
+			'submit .form-run-add': 'handleForm',
+			'change .illumina': 'upload'
 		}, //close events 
+
 		handleForm: function(ev){
 			ev.preventDefault();
 			var obj = $(ev.currentTarget).serializeObject();
@@ -50,7 +60,8 @@ define([
 			});
 			return false;
 		}, //close handleForm function
-		deleteRun:function(env){
+
+		deleteRun:function(ev){
 			var that = this
 			this.currentRun.destroy({
 				success: function(){
@@ -58,6 +69,13 @@ define([
 				}
 			});
 			return false;
+		},
+
+		upload:function(ev){
+			console.log("generate upload template")
+			var compiledTemplate = _.template(runUploadTemplate);
+   		    $("#uploadView").html(compiledTemplate({}));
+			require(["fileuploadHandler"])
 		}
 	});
 

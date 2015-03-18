@@ -1,6 +1,7 @@
 require.config({
   shim: {
-  	"bootstrap" : {"deps" : ['jquery']}
+  	"bootstrap" : {"deps" : ['jquery']},
+    "fileuploadHandler":{"deps":['ich']}
   },
   paths: {
     "underscore": "../bower_components/lodash/dist/lodash.underscore",
@@ -10,6 +11,10 @@ require.config({
     "backbone": "../bower_components/backbone/backbone",
     "text":"../bower_components/text/text",
   	"bootstrap":"../bower_components/bootstrap/dist/js/bootstrap.min",
+    "fileupload":"modules/jquery.fileupload",
+    "jquery.ui.widget":"modules/jquery.ui.widget",
+    "fileuploadHandler":"modules/jquery.fileupload.handler",
+    "ich":"modules/ICanHaz"
   },
 
   deps: ["main"]
