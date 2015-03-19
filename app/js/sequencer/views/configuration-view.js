@@ -21,6 +21,7 @@ define([
 					"run_name":options.run_name,
 					"run_id":null
 				}
+			console.log("initialize configuration view")
 		},
 		render: function(options){
 			var compiledTemplate = _.template(configurationListTemplate);
@@ -34,7 +35,6 @@ define([
 		},
 
 		startFastq:function(ev){
-			console.log("hey you clicked me!" + this.analyzesDataArray["illumina_id"])
 			var currentAnalyzeData = this.analyzesDataArray[$(ev.currentTarget).attr("id")]
 			var obj = {
 						"name":this.analyzesDataArray["run_name"],
@@ -43,55 +43,67 @@ define([
 			console.log(obj)
 			if(this.analyzesDataArray["run_id"]==null){
 				// if Run does not exist, create one
+				console.log("create the first run")
 				var that = this
 				run = new RunModel()
 				run.save(obj,{
-					success: function(){
-						that.analyzesDataArray["run_id"] = 80
+					success: function(new_run){
+						that.analyzesDataArray["run_id"] = String(new_run.get('id'))
+						that.createAnalyze(currentAnalyzeData)
 					}
 				});
 			}
-			//get form data
-		    var analyze_data={
-	            "name":currentAnalyzeData.header,
-	            "run":Settings.getURL("run","80"),
-	            "csv":currentAnalyzeData.header,
-	            "configuration":{},
-            }
-            $.each(currentAnalyzeData.reads, function(idx, val){
+			else{
+				this.createAnalyze(currentAnalyzeData)
+			}
+		},
 
-                var read = {
+		createAnalyze: function(currentAnalyzeData){
+				//get form data
+				console.log(this.analyzesDataArray["run_id"])
+			    var analyze_data={
+		            "name":currentAnalyzeData.header,
+		            "run":Settings.getURL("run",this.analyzesDataArray["run_id"]),
+		            "run_id":this.analyzesDataArray["run_id"],
+		            "csv":currentAnalyzeData.header,
+		            "configuration":{},
+		            "illumina_id":this.analyzesDataArray["illumina_id"]
+	            }
+	            $.each(currentAnalyzeData.reads, function(idx, val){
 
-                                "NumCycles":val,
-                                "IsIndexedRead":"no"
+	                var read = {
 
-                            };
-                var readNumber = $($("div[data-expname="+analyze_data.name+"] tr[data-type=read] input")[idx]).
-                                        val();
-                analyze_data["configuration"][readNumber]=read;
-            });
+	                                "NumCycles":val,
+	                                "IsIndexedRead":"no"
 
-            $.each(currentAnalyzeData.indexes, function(idx, val){
+	                            };
+	                var readNumber = $($("div[data-expname="+analyze_data.name+"] tr[data-type=read] input")[idx]).
+	                                        val();
+	                analyze_data["configuration"][readNumber]=read;
+	            });
 
-                var index = {
+	            $.each(currentAnalyzeData.indexes, function(idx, val){
 
-                                "NumCycles":val,
-                                "IsIndexedRead":"yes"
+	                var index = {
 
-                            };
+	                                "NumCycles":val,
+	                                "IsIndexedRead":"yes"
 
-                var readNumber = $($("div[data-expname="+analyze_data.name+"] tr[data-type=index] input")[idx]).
-                                        val();
-                analyze_data["configuration"][readNumber]=index;
-            });
-            console.log(analyze_data)
-            analyze = new AnalyzeModel();
-            analyze.save(analyze_data);
-			// create new task, related to the current run
-			//delete current data in array
-			delete this.analyzesDataArray[$(ev.currentTarget).attr("id")]
+	                            };
+
+	                var readNumber = $($("div[data-expname="+analyze_data.name+"] tr[data-type=index] input")[idx]).
+	                                        val();
+	                analyze_data["configuration"][readNumber]=index;
+	            });
+	            console.log(analyze_data)
+	            analyze = new AnalyzeModel();
+	            analyze.save(analyze_data);
+				// create new task, related to the current run
+				//delete current data in array
+				delete this.analyzesDataArray[currentAnalyzeData["id"]]
+				
 		}
-	});
+	}); //end extend
 
 	var viewInstance;
 	var instance = function(options){

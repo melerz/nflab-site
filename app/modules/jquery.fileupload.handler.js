@@ -4,6 +4,7 @@ define(['js/sequencer/views/configuration-view','pubsub'],function(Configuration
         url: '/illumina/uploadcsv/',
         dataType: 'json',
         done: function (e, data){
+                console.log(data.result.files)
                 $.each(data.result.files, function (index, file) {
                     var csv_data = {
 
@@ -22,17 +23,13 @@ define(['js/sequencer/views/configuration-view','pubsub'],function(Configuration
 
                  }); //close each function
         },//close done function clalback, 
-        error: function(e,data){
-            
-            $.each($("#fileupload").prop("files"), function (index, file) {
-
-                    var divElem = $("<div></div>")
-                    divElem.attr("class","alert alert-danger").text("Error! "+file.name+"is not a .csv file").
-                            hide().appendTo('#experiments').fadeIn('slow', function() {
-                                divElem.fadeOut(4000)
-                            });
-                
-            })//close each function
+        error: function(e){
+                var output= JSON.parse(e.responseText)
+                var divElem = $("<div></div>")
+                divElem.attr("class","alert alert-danger").text("Error: " + output.error).
+                        hide().appendTo('#experiments').fadeIn('slow', function() {
+                            divElem.fadeOut(4000)
+                });
         }//close error callback
     }).prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');

@@ -1,16 +1,18 @@
+<div>
+<br />
 <form class="form-run-add form-horizontal">
 		<div class="form-group">
-			<legend><%= run ? "Update Run" : 'Create Run' %></legend>
-			<label class="cols-sm-4 control-label">Name</label>
-			<div class="col-sm-4">
+			<label class="col-sm-1 control-label">Name</label>
+			<div class="col-sm-5">
 			<input id="run-name" class="form-control" type="text" name="name" value="<%=run ? run.get('name') : ''%>">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="cols-sm-2 control-label">Illumina Data</label>
+			<label class="col-sm-1 control-label">Illumina Data</label>
 			<!-- <input type="text" name="illumina_id" value="<%=run ? run.get('illumina_id') : ''%>"/> -->
-			<div class="col-sm-4">
-				<select class="illumina col-md-1 form-control">
+			<div class="col-sm-5">
+				<select class="illumina col-md-1 form-control" placeholder="ada">
+					<option value="" disabled selected>Select Illumina Data</option>
 					<% _.each(illumina,function(illuminaData){ %>
 					  <option value="<%=illuminaData.id%>"> <%=illuminaData.get('name')%> </option>
 					<%});%>
@@ -25,3 +27,4 @@
 	<%};%>
 	<div id="uploadView"></div>
 </form>
+</div>

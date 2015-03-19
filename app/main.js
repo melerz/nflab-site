@@ -7,7 +7,7 @@ require(["app", "router"], function(app, Router) {
 
 	$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 	//options.url= "http://132.65.120.148:8080/illuminaapi" + options.url;
-	options.url= "http://10.100.102.11:8080/illuminaapi" + options.url;
+	options.url= "http://132.65.120.148:8080/illuminaapi" + options.url;
 	});
 
 	$.fn.serializeObject = function()

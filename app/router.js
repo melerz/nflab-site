@@ -1,8 +1,11 @@
 define([
     'js/sequencer/views/seq-run-view',
     'js/sequencer/views/edit',
+    'js/sequencer/views/analyze-view',
+    'jquery',
+    'underscore',
     'backbone',
-    ],function(SequencerView,SequencerEditView,Backbone) {
+    ],function(SequencerView,SequencerEditView,SequencerAnalyzeView,$,_,Backbone) {
   "use strict";
 
   // Defining the application router.
@@ -11,6 +14,7 @@ define([
     routes: {
       '': 'index',
       'add':'add',
+      'analyzes':'analyzes',
       'edit/:id':'edit',
     }
   });
@@ -29,6 +33,10 @@ define([
 
     appRouter.on('route:edit',function(id){
         SequencerEditView.instance({router:appRouter}).render({id:id});
+    });
+
+    appRouter.on('route:analyzes',function(id){
+        SequencerAnalyzeView.instance({router:appRouter}).render({});
     });
   }
   return {initialize:initialize};

@@ -1,0 +1,19 @@
+<table class="table table-hover">
+<thead>
+	<th>ID</th>
+	<th>Analyze Name</th>
+	<th>Analyze Status</th>
+	<th>Run Name</th>
+</thead>
+<tbody>
+	<% _.each(analyzes,function(analyze){ %>
+		<tr>
+			<td><%=analyze.get("id")%></td>
+			<td><%=analyze.get("name")%></td>
+			<td><%=analyze.get("status")%></td>
+			<td><%=analyze.get("run")%></td>
+
+		</tr>
+	<%})%>
+</tbody>
+</table>

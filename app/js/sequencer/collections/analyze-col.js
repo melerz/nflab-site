@@ -4,7 +4,7 @@ define([
 	'backbone',
 	],function(analyzeModel,_,Backbone){
 
-		var sequencerIlluminas = Backbone.Collection.extend({
+		var sequencerAnalyzes = Backbone.Collection.extend({
 			model:analyzeModel,
 			url:'/analyze/'
 		});
