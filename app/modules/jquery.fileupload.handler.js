@@ -16,7 +16,7 @@ define(['js/sequencer/views/configuration-view','pubsub'],function(Configuration
                       }; //close csv_data
                     ConfigurationView.instance({illumina_id:$(".illumina").
                                                          children(":selected").
-                                                            attr("value"),run_name:$("#run-name").val()}).
+                                                            attr("value")}).
                                                                 render({data:csv_data})
                     //Mediator.trigger("alert",{foo:$(".illumina").children(":selected").attr("value")})
                     //Illumina ID is initialized in edit.js 

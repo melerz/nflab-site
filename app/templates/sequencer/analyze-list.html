@@ -3,7 +3,7 @@
 	<th>ID</th>
 	<th>Analyze Name</th>
 	<th>Analyze Status</th>
-	<th>Run Name</th>
+	<th>Illumina Data</th>
 </thead>
 <tbody>
 	<% _.each(analyzes,function(analyze){ %>
@@ -11,7 +11,7 @@
 			<td><%=analyze.get("id")%></td>
 			<td><%=analyze.get("name")%></td>
 			<td><%=analyze.get("status")%></td>
-			<td><%=analyze.get("run")%></td>
+			<td><%=analyze.get("illumina")%></td>
 
 		</tr>
 	<%})%>

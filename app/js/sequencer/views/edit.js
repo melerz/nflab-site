@@ -44,23 +44,8 @@ define([
 		},//close of render function
 		events:{
 			'click .deleteButton' : 'deleteRun',
-			'submit .form-run-add': 'handleForm',
 			'change .illumina': 'upload'
 		}, //close events 
-
-		handleForm: function(ev){
-			ev.preventDefault();
-			var obj = $(ev.currentTarget).serializeObject();
-			var run = new runModel(); //our model
-			var that=this;
-			run.save(obj,{
-				success: function(run){
-					//router.navigate('',{'trigger':true})
-					that.router.navigate('',{'trigger':true});
-				}
-			});
-			return false;
-		}, //close handleForm function
 
 		deleteRun:function(ev){
 			var that = this
