@@ -46,7 +46,7 @@ define([
 	                var read = {
 
 	                                "NumCycles":val,
-	                                "IsIndexedRead":"no"
+	                                "IsIndexedRead":"N"
 
 	                            };
 	                var readNumber = $($("div[data-expname="+analyze_data.name+"] tr[data-type=read] input")[idx]).
@@ -59,7 +59,7 @@ define([
 	                var index = {
 
 	                                "NumCycles":val,
-	                                "IsIndexedRead":"yes"
+	                                "IsIndexedRead":"Y"
 
 	                            };
 

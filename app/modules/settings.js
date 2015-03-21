@@ -5,7 +5,7 @@ define([
 	],function($,_,Backbone){
 		"use strict";
 		var settings = {
-			"rootURL":"http://132.65.120.148:8080/illuminaapi",
+			"rootURL":"http://10.100.102.11:8080/illuminaapi",
 			"urls": {
 				"run":"/run/",
 				"analyze":"/analyze/",
